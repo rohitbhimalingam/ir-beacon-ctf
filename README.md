@@ -11,7 +11,15 @@ The attached PowerShell artifact is Base64-encoded gzip. Decompressing it reveal
 The three challenge services returned the staged ZIP when requested at `/beacon` with the computed header. The ZIP contained a packet capture, a PNG, and a router configuration:
 
 - DNS query names in `beacon_capture.pcap` carry hex-encoded bytes in their first labels. Reassembling them in packet order yields `0x1337{pl5_g`.
-- Reading the RGB least-significant bits of `cam_backup.png` yields `3t_4_5y54`.
+- RGB least-significant bits in `cam_backup.png` yield `3t_4_5y54`.
 - Decoding the Cisco type-7 password `121D08461C16` in `rtr-config.txt` yields `dm1n}`.
 
 Concatenating the three parts gives the flag above.
+
+## Run the solver
+
+The standard-library-only solver reads the staged ZIP and reconstructs the flag:
+
+```sh
+python solve.py loot.zip
+```
